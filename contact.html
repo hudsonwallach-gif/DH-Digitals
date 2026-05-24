@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — DH Digitals</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F5F0E8'/%3E%3Ctext x='16' y='21.5' font-family='Georgia%2C%20serif' font-size='13' font-weight='600' fill='%232C4A3E' text-anchor='middle'%3EDH%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-contact">
+
+  <nav id="nav">
+    <div class="container">
+      <a href="index.html" class="logo"><span class="logo-serif">DH</span> <span class="logo-rest">Digitals</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#plans">Pricing</a></li>
+        <li><a href="contact.html" class="active btn btn-primary">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <p class="hero-tag">Get In Touch</p>
+          <h1>Let's build something <em>great</em></h1>
+          <p><span class="lead-sentence">Tell us about your project and we'll get back to you within 24 hours.</span> No pressure, no jargon — just a straight conversation about what your business needs.</p>
+
+          <div class="contact-methods">
+            <a href="tel:9294486293" class="contact-method">
+              <div class="method-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="method-label">Phone</div>
+                <div class="method-value">929-448-6293</div>
+              </div>
+            </a>
+
+            <a href="mailto:DGdigitals1@gmail.com" class="contact-method">
+              <div class="method-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="method-label">Email</div>
+                <div class="method-value">DGdigitals1@gmail.com</div>
+              </div>
+            </a>
+          </div>
+
+          <p class="contact-note"><span class="lead-sentence">Prefer to talk?</span> Call us directly — we're happy to answer questions about pricing, timelines, or anything else.</p>
+        </div>
+
+        <div class="form-panel" id="formPanel">
+          <div class="form-body" id="formBody">
+            <h2>Send a message</h2>
+            <p><span class="lead-sentence">Fill out the form below and we'll be in touch shortly.</span></p>
+
+            <form id="contactForm" novalidate>
+              <div class="form-group" id="nameGroup">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="name" required>
+                <span class="form-error">Please enter your name.</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group" id="emailGroup">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="you@business.com" autocomplete="email" required>
+                  <span class="form-error">Please enter a valid email.</span>
+                </div>
+                <div class="form-group" id="phoneGroup">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" name="phone" placeholder="Your phone number" autocomplete="tel">
+                  <span class="form-error">Please enter a valid phone number.</span>
+                </div>
+              </div>
+
+              <div class="form-group" id="messageGroup">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and goals..." required></textarea>
+                <span class="form-error">Please enter a message.</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+            </form>
+          </div>
+
+          <div class="form-success" id="formSuccess">
+            <div class="form-success-icon">
+              <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h3>Message sent!</h3>
+            <p><span class="lead-sentence">Thanks for reaching out.</span> We'll get back to you within 24 hours.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-main">
+      <div class="footer-col footer-brand-col">
+        <a href="index.html" class="footer-logo logo">
+          <span class="logo-serif">DH</span>
+          <span class="logo-rest">Digitals</span>
+        </a>
+        <p class="footer-tagline">Clean websites for small businesses that actually work.</p>
+        <ul class="footer-contact-list">
+          <li>
+            <a href="tel:9294486293">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 2h4l1.5 4-2 1.5a11 11 0 0 0 5 5L13 10.5 17 12v4a2 2 0 0 1-2 2A15 15 0 0 1 1 4a2 2 0 0 1 2-2z"/>
+              </svg>
+              929-448-6293
+            </a>
+          </li>
+          <li>
+            <a href="mailto:DGdigitals1@gmail.com">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="12" height="9" rx="1"/><path d="M2 5l6 4 6-4"/>
+              </svg>
+              DGdigitals1@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col footer-links-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="services.html#plans">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-cta-col">
+        <div class="footer-cta-box">
+          <p class="footer-cta-title">Ready to get started?</p>
+          <a href="contact.html" class="btn btn-outline-light">Get Started</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div class="container footer-bar-inner">
+        <p class="footer-copy">&copy; 2026 DH Digitals. All rights reserved.</p>
+        <p class="footer-credit">Built by DH Digitals</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const form = document.getElementById('contactForm');
+    const formBody = document.getElementById('formBody');
+    const formSuccess = document.getElementById('formSuccess');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function validateEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function validatePhone(value) {
+      if (!value.trim()) return true;
+      return /^[\d\s\-().+]{7,}$/.test(value);
+    }
+
+    function setError(groupId, inputId, hasError) {
+      const group = document.getElementById(groupId);
+      const input = document.getElementById(inputId);
+      group.classList.toggle('has-error', hasError);
+      input.classList.toggle('error', hasError);
+      return hasError;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      let valid = true;
+      if (setError('nameGroup', 'name', !name)) valid = false;
+      if (setError('emailGroup', 'email', !validateEmail(email))) valid = false;
+      if (setError('phoneGroup', 'phone', !validatePhone(phone))) valid = false;
+      if (setError('messageGroup', 'message', !message)) valid = false;
+
+      if (!valid) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const subject = encodeURIComponent(`New inquiry from ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\n\nMessage:\n${message}`
+      );
+
+      window.location.href = `mailto:DGdigitals1@gmail.com?subject=${subject}&body=${body}`;
+
+      setTimeout(() => {
+        formBody.classList.add('hidden');
+        formSuccess.classList.add('visible');
+      }, 600);
+    });
+
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('input', () => {
+        const group = field.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+        field.classList.remove('error');
+      });
+    });
+  </script>
+</body>
+</html>

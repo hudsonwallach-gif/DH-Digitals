@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DH Digitals — Web Design & Development</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F5F0E8'/%3E%3Ctext x='16' y='21.5' font-family='Georgia%2C%20serif' font-size='13' font-weight='600' fill='%232C4A3E' text-anchor='middle'%3EDH%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="container">
+      <a href="index.html" class="logo"><span class="logo-serif">DH</span> <span class="logo-rest">Digitals</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="contact.html" class="btn btn-primary">Get Started</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-parallax-bg" aria-hidden="true"></div>
+    <div class="hero-monogram" aria-hidden="true">DH</div>
+    <svg class="hero-grain" aria-hidden="true" preserveAspectRatio="none">
+      <filter id="hero-noise" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#hero-noise)" opacity="0.12"/>
+    </svg>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <p class="hero-tag">Web Design & Development</p>
+        <h1>We Build Websites That Work For Your <span class="hero-word">Business<svg class="hero-underline" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C45 3, 85 11, 125 5 S175 2, 197 7" stroke="#2C4A3E" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></span></h1>
+        <p class="hero-sub"><span class="lead-sentence">Clean, fast, and built to convert.</span> DH Digitals helps small businesses get online with sites that look sharp and drive real results.</p>
+        <div class="hero-cta">
+          <a href="contact.html" class="btn btn-primary">Get Started</a>
+          <a href="#pricing" class="btn btn-outline">View Pricing</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Custom-built</div>
+          </div>
+          <div>
+            <div class="stat-num">Fast</div>
+            <div class="stat-label">Launch timelines</div>
+          </div>
+          <div>
+            <div class="stat-num">Local</div>
+            <div class="stat-label">Small biz focused</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#services" class="hero-scroll-hint" aria-label="Scroll down">
+      <svg class="hero-scroll-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="services-header reveal">
+        <p class="section-label">What We Do</p>
+        <h2 class="section-title">Everything your business needs online</h2>
+        <p class="section-desc"><span class="lead-sentence">No templates. No bloat.</span> Just thoughtful design and clean code tailored to how your customers actually find and use your site.</p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="16" height="16" rx="1"/><line x1="3" y1="8" x2="19" y2="8"/><line x1="8" y1="8" x2="8" y2="19"/>
+            </svg>
+          </div>
+          <h3>Web Design</h3>
+          <p><span class="lead-sentence">Layouts that feel intentional — clear hierarchy, strong typography, and a visual identity that makes your brand memorable without trying too hard.</span></p>
+        </div>
+        <div class="service-card card-offset">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3>Web Development</h3>
+          <p><span class="lead-sentence">Hand-coded, mobile-first sites that load fast and work everywhere.</span> Built on solid foundations so your site stays reliable as your business grows.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <h3>SEO-Ready Structure</h3>
+          <p><span class="lead-sentence">Every page is built with search in mind — proper markup, fast load times, and a structure that helps local customers actually find you on Google.</span></p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Ongoing Support</h3>
+          <p><span class="lead-sentence">Your site shouldn't gather dust.</span> Premium clients get monthly edit hours and an AI chatbot to keep visitors engaged around the clock.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section id="social-proof" class="social-proof">
+    <div class="container">
+      <div class="social-proof-grid reveal">
+        <div class="social-proof-quote">
+          <svg class="quote-mark" viewBox="0 0 80 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 46V34c0-10 5-18 14-22M18 46h-8M18 46c-6 0-10-4-10-10M50 46V34c0-10 5-18 14-22M50 46h-8M50 46c-6 0-10-4-10-10"/>
+          </svg>
+          <blockquote>
+            <p>They built our site in 2 weeks and it looked better than anything we couldve imagined.</p>
+            <cite>Marcus T. — Owner, MT Auto Detailing</cite>
+          </blockquote>
+        </div>
+        <div class="social-proof-stats">
+          <div class="stat-block">
+            <span class="stat-value">2</span>
+            <span class="stat-label">Week Average Delivery</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Mobile Responsive</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-value stat-check" aria-hidden="true">
+              <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 18 14 26 30 10"/>
+              </svg>
+            </span>
+            <span class="stat-label">Small Business Focused</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container">
+      <div class="pricing-header reveal">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">Straightforward plans for every stage</h2>
+        <p class="section-desc"><span class="lead-sentence">No hidden fees.</span> Pick the package that fits where your business is today — upgrade anytime.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <div class="price-card reveal">
+          <div class="price-tier">Basic</div>
+          <div class="price-amount">$397</div>
+          <p class="price-pages">Up to 3 pages</p>
+          <ul class="price-features">
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Mobile responsive design
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Contact form
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Basic SEO setup
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              1 revision round
+            </li>
+          </ul>
+          <div class="price-meta">
+            <div class="meta-item">
+              <div class="meta-label">Delivery</div>
+              <div class="meta-value">2 weeks</div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-outline">Get Started</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-tier">Standard</div>
+          <div class="price-amount">$597</div>
+          <p class="price-pages">Up to 7 pages</p>
+          <ul class="price-features">
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Everything in Basic
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Google Analytics integration
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Social media links
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Image gallery
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Blog setup
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              2 revision rounds
+            </li>
+          </ul>
+          <div class="price-meta">
+            <div class="meta-item">
+              <div class="meta-label">Delivery</div>
+              <div class="meta-value">3 weeks</div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Get Started</a>
+        </div>
+
+        <div class="price-card reveal">
+          <div class="price-tier">Premium</div>
+          <div class="price-amount">$997</div>
+          <p class="price-pages">Up to 10 pages</p>
+          <ul class="price-features">
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Everything in Standard
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              E-commerce ready
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              AI chatbot
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Custom animations
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Speed optimization
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Priority support
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              5 hrs/month of edits
+            </li>
+            <li>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>
+              Dedicated account manager
+            </li>
+          </ul>
+          <div class="price-meta">
+            <div class="meta-item">
+              <div class="meta-label">Delivery</div>
+              <div class="meta-value">4 weeks</div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-outline">Get Started</a>
+        </div>
+
+      </div>
+
+      <div class="care-plan reveal">
+        <div class="care-plan-info">
+          <span class="care-plan-tag">Optional Add-On</span>
+          <h3>Website Care Plan</h3>
+          <ul class="care-plan-features">
+            <li>Hosting</li>
+            <li>Security</li>
+            <li>Backups</li>
+            <li>Priority support</li>
+            <li>1 hr edits/mo</li>
+            <li>Monthly maintenance report</li>
+          </ul>
+        </div>
+        <div class="care-plan-price">
+          <div class="price-amount">$79<span>/mo</span></div>
+          <p class="care-plan-note">Add to any package at checkout</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Ready to grow your business online?</h2>
+      <p><span class="lead-sentence">Let's talk about what your site needs.</span> No pressure, no jargon.</p>
+      <a href="contact.html" class="btn btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="container footer-main">
+      <div class="footer-col footer-brand-col">
+        <a href="index.html" class="footer-logo logo">
+          <span class="logo-serif">DH</span>
+          <span class="logo-rest">Digitals</span>
+        </a>
+        <p class="footer-tagline">Clean websites for small businesses that actually work.</p>
+        <ul class="footer-contact-list">
+          <li>
+            <a href="tel:9294486293">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 2h4l1.5 4-2 1.5a11 11 0 0 0 5 5L13 10.5 17 12v4a2 2 0 0 1-2 2A15 15 0 0 1 1 4a2 2 0 0 1 2-2z"/>
+              </svg>
+              929-448-6293
+            </a>
+          </li>
+          <li>
+            <a href="mailto:DGdigitals1@gmail.com">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="12" height="9" rx="1"/><path d="M2 5l6 4 6-4"/>
+              </svg>
+              DGdigitals1@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col footer-links-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-cta-col">
+        <div class="footer-cta-box">
+          <p class="footer-cta-title">Ready to get started?</p>
+          <a href="contact.html" class="btn btn-outline-light">Get Started</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div class="container footer-bar-inner">
+        <p class="footer-copy">&copy; 2026 DH Digitals. All rights reserved.</p>
+        <p class="footer-credit">Built by DH Digitals</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
