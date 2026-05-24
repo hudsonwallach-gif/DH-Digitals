@@ -1,7 +1,6 @@
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const INTRO_STORAGE_KEY = 'dhIntroSeen';
-  const playPageIntro = !sessionStorage.getItem(INTRO_STORAGE_KEY) && !reducedMotion;
+  const playPageIntro = !reducedMotion;
 
   if (playPageIntro) {
     document.documentElement.classList.add('page-intro-pending');
@@ -43,7 +42,7 @@
       navToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
 
-    navLinks.querySelectorAll('a').forEach(link => {
+    navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMobileNav);
     });
 
@@ -53,6 +52,11 @@
   }
 
   const proofStatsBar = document.getElementById('proofStatsBar');
+
+  const isInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+  };
 
   const animatePriceChecks = (list) => {
     if (!list || list.dataset.checksDone) return;
@@ -186,11 +190,6 @@
       });
     });
 
-    const isInViewport = (el) => {
-      const rect = el.getBoundingClientRect();
-      return rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
-    };
-
     const revealItem = (item) => {
       if (item.revealed) return;
       item.revealed = true;
@@ -222,74 +221,122 @@
     });
   };
 
-  const showScrollTargetsImmediately = () => {
-    document.querySelectorAll('.social-proof-quote').forEach((el) => {
-      el.classList.add('is-inview');
-    });
-    document.querySelectorAll('.scroll-card-group').forEach((group) => {
-      group.classList.add('is-inview');
-      group.querySelectorAll('.service-card, .price-card, .process-step, .why-card, .value-card').forEach((card) => {
-        card.style.transitionDelay = '0s';
-      });
-    });
-    document.querySelectorAll('#proofStatsBar [data-count]').forEach((counter) => {
-      setCounterValue(counter, Number(counter.dataset.count));
-    });
-  };
+  const initAnimateIn = () => {
+    const cardSelector = '.service-card, .price-card, .process-step, .why-card, .value-card';
+    const gridSelector = '.services-grid, .pricing-grid, .process-steps, .why-grid, .values-grid';
 
-  const initScrollAnimations = () => {
-    document.querySelectorAll('.services-grid, .pricing-grid, .process-steps, .why-grid, .values-grid').forEach((grid) => {
+    document.querySelectorAll('.reveal').forEach((el) => {
+      if (el.matches(gridSelector)) return;
+      if (el.querySelector('.social-proof-quote')) return;
+      el.classList.add('animate-in');
+    });
+
+    document.querySelectorAll(cardSelector).forEach((el) => {
+      el.classList.add('animate-in');
+    });
+
+    document.querySelectorAll('.social-proof-quote').forEach((el) => {
+      el.classList.add('animate-in');
+    });
+
+    document.querySelectorAll(gridSelector).forEach((grid) => {
       grid.classList.add('scroll-card-group');
     });
 
-    document.querySelectorAll('.social-proof-quote').forEach((el) => {
-      el.classList.remove('reveal');
-    });
+    const revealElement = (el, delay = 0) => {
+      window.setTimeout(() => {
+        el.classList.add('visible');
+      }, delay);
+    };
+
+    const revealGrid = (grid) => {
+      const cards = grid.querySelectorAll(cardSelector);
+      cards.forEach((card, i) => {
+        revealElement(card, i * 100);
+      });
+      grid.querySelectorAll('.price-features').forEach(animatePriceChecks);
+    };
+
+    const showAllVisible = () => {
+      document.querySelectorAll('.animate-in, .reveal').forEach((el) => {
+        el.classList.add('visible');
+      });
+      document.querySelectorAll('.price-features').forEach(animatePriceChecks);
+      if (proofStatsBar) {
+        proofStatsBar.querySelectorAll('[data-count]').forEach((counter) => {
+          setCounterValue(counter, Number(counter.dataset.count));
+        });
+      }
+    };
 
     if (reducedMotion) {
+      showAllVisible();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+
+        if (target.matches(gridSelector)) {
+          revealGrid(target);
+        } else if (target.id === 'proofStatsBar') {
+          target.querySelectorAll('[data-count]').forEach(animateCounter);
+        } else {
+          revealElement(target);
+          if (target.classList.contains('price-card')) {
+            target.querySelectorAll('.price-features').forEach(animatePriceChecks);
+          }
+        }
+
+        observer.unobserve(target);
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(gridSelector).forEach((grid) => {
+      if (isInViewport(grid)) {
+        revealGrid(grid);
+      } else {
+        observer.observe(grid);
+      }
+    });
+
+    document.querySelectorAll('.social-proof-quote').forEach((el) => {
+      if (isInViewport(el)) {
+        revealElement(el);
+      } else {
+        observer.observe(el);
+      }
+    });
+
+    document.querySelectorAll('.animate-in').forEach((el) => {
+      if (el.closest(gridSelector)) return;
+      if (isInViewport(el)) {
+        revealElement(el);
+      } else {
+        observer.observe(el);
+      }
+    });
+
+    if (proofStatsBar) {
+      if (isInViewport(proofStatsBar)) {
+        proofStatsBar.querySelectorAll('[data-count]').forEach(animateCounter);
+      } else {
+        observer.observe(proofStatsBar);
+      }
+    }
+  };
+
+  const initScrollAnimations = () => {
+    if (reducedMotion) {
       nav?.classList.add('is-loaded');
-      showScrollTargetsImmediately();
       initHeroLoad();
       return;
     }
 
     requestAnimationFrame(() => nav?.classList.add('is-loaded'));
     initHeroLoad();
-
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const target = entry.target;
-
-        if (target.classList.contains('scroll-card-group')) {
-          target.classList.add('is-inview');
-          const cards = target.querySelectorAll('.service-card, .price-card, .process-step, .why-card, .value-card');
-          cards.forEach((card, i) => {
-            card.style.transitionDelay = `${i * 0.1}s`;
-          });
-          target.querySelectorAll('.price-features').forEach(animatePriceChecks);
-          scrollObserver.unobserve(target);
-          return;
-        }
-
-        if (target.id === 'proofStatsBar') {
-          target.querySelectorAll('[data-count]').forEach(animateCounter);
-          scrollObserver.unobserve(target);
-          return;
-        }
-
-        target.classList.add('is-inview');
-        scrollObserver.unobserve(target);
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.social-proof-quote, .scroll-card-group').forEach((el) => {
-      scrollObserver.observe(el);
-    });
-
-    if (proofStatsBar) {
-      scrollObserver.observe(proofStatsBar);
-    }
   };
 
   const initRipples = () => {
@@ -372,11 +419,11 @@
         heading.style.transform = `translateX(${driftX}px)`;
       });
 
-      if (socialQuote) {
+      if (socialQuote && socialQuote.classList.contains('visible')) {
         const rect = socialQuote.getBoundingClientRect();
         const progress = clamp((viewportHeight - rect.top) / (viewportHeight + rect.height * 0.35), 0, 1);
         const scale = 0.98 + progress * 0.02;
-        socialQuote.style.transform = `scale(${scale})`;
+        socialQuote.style.transform = `translateY(0) scale(${scale})`;
       }
     };
 
@@ -465,7 +512,6 @@
     setTimeout(() => {
       overlay.classList.add('is-exiting');
       document.documentElement.classList.add('page-intro-reveal');
-      sessionStorage.setItem(INTRO_STORAGE_KEY, '1');
     }, 1400);
 
     setTimeout(() => {
@@ -476,13 +522,141 @@
     }, 2100);
   };
 
+  const initCustomCursor = () => {
+    if (reducedMotion) return;
+
+    const cursorMobileMq = window.matchMedia('(max-width: 768px)');
+    const hoverSelector = 'a, button, .btn, input[type="submit"]';
+    let cursorDot = null;
+    let cursorRing = null;
+    let cursorRafId = null;
+    let cursorMouseX = 0;
+    let cursorMouseY = 0;
+    let cursorRingX = 0;
+    let cursorRingY = 0;
+    let cursorClickTimeout = null;
+
+    const setCursorHidden = (hidden) => {
+      cursorDot?.classList.toggle('is-hidden', hidden);
+      cursorRing?.classList.toggle('is-hidden', hidden);
+    };
+
+    const onCursorMove = (e) => {
+      cursorMouseX = e.clientX;
+      cursorMouseY = e.clientY;
+      if (cursorDot) {
+        cursorDot.style.left = `${cursorMouseX}px`;
+        cursorDot.style.top = `${cursorMouseY}px`;
+      }
+    };
+
+    const animateCursorRing = () => {
+      cursorRingX += (cursorMouseX - cursorRingX) * 0.12;
+      cursorRingY += (cursorMouseY - cursorRingY) * 0.12;
+      if (cursorRing) {
+        cursorRing.style.left = `${cursorRingX}px`;
+        cursorRing.style.top = `${cursorRingY}px`;
+      }
+      cursorRafId = requestAnimationFrame(animateCursorRing);
+    };
+
+    const onCursorOver = (e) => {
+      if (e.target.closest(hoverSelector)) {
+        cursorDot?.classList.add('is-hover');
+        cursorRing?.classList.add('is-hover');
+      }
+    };
+
+    const onCursorOut = (e) => {
+      const leaving = e.target.closest(hoverSelector);
+      if (leaving && !e.relatedTarget?.closest(hoverSelector)) {
+        cursorDot?.classList.remove('is-hover');
+        cursorRing?.classList.remove('is-hover');
+      }
+    };
+
+    const onCursorDown = () => {
+      cursorDot?.classList.add('is-click');
+      cursorRing?.classList.add('is-click');
+      clearTimeout(cursorClickTimeout);
+      cursorClickTimeout = setTimeout(() => {
+        cursorDot?.classList.remove('is-click');
+        cursorRing?.classList.remove('is-click');
+      }, 150);
+    };
+
+    const onDocumentLeave = () => setCursorHidden(true);
+    const onDocumentEnter = () => setCursorHidden(false);
+
+    const destroyCustomCursor = () => {
+      if (cursorRafId) {
+        cancelAnimationFrame(cursorRafId);
+        cursorRafId = null;
+      }
+      clearTimeout(cursorClickTimeout);
+      document.removeEventListener('mousemove', onCursorMove);
+      document.removeEventListener('mouseover', onCursorOver);
+      document.removeEventListener('mouseout', onCursorOut);
+      document.removeEventListener('mousedown', onCursorDown);
+      document.removeEventListener('mouseleave', onDocumentLeave);
+      document.removeEventListener('mouseenter', onDocumentEnter);
+      cursorDot?.remove();
+      cursorRing?.remove();
+      cursorDot = null;
+      cursorRing = null;
+      document.documentElement.classList.remove('has-custom-cursor');
+    };
+
+    const setupCustomCursor = () => {
+      if (cursorMobileMq.matches) {
+        destroyCustomCursor();
+        return;
+      }
+
+      if (cursorDot && cursorRing) return;
+
+      cursorDot = document.createElement('div');
+      cursorDot.className = 'custom-cursor-dot';
+      cursorDot.setAttribute('aria-hidden', 'true');
+
+      cursorRing = document.createElement('div');
+      cursorRing.className = 'custom-cursor-ring';
+      cursorRing.setAttribute('aria-hidden', 'true');
+
+      document.body.appendChild(cursorDot);
+      document.body.appendChild(cursorRing);
+      document.documentElement.classList.add('has-custom-cursor');
+
+      cursorRingX = cursorMouseX;
+      cursorRingY = cursorMouseY;
+      cursorDot.style.left = `${cursorMouseX}px`;
+      cursorDot.style.top = `${cursorMouseY}px`;
+      cursorRing.style.left = `${cursorRingX}px`;
+      cursorRing.style.top = `${cursorRingY}px`;
+
+      document.addEventListener('mousemove', onCursorMove);
+      document.addEventListener('mouseover', onCursorOver);
+      document.addEventListener('mouseout', onCursorOut);
+      document.addEventListener('mousedown', onCursorDown);
+      document.addEventListener('mouseleave', onDocumentLeave);
+      document.addEventListener('mouseenter', onDocumentEnter);
+
+      cursorRafId = requestAnimationFrame(animateCursorRing);
+    };
+
+    cursorMobileMq.addEventListener('change', setupCustomCursor);
+    setupCustomCursor();
+  };
+
   initPageIntro(() => {
     initTextReveal();
+    initAnimateIn();
     initScrollAnimations();
     initHomeParallax();
   });
   initRipples();
   initMagneticButtons();
+  initCustomCursor();
 
   const priceFeaturesLists = document.querySelectorAll('.price-features');
   if (priceFeaturesLists.length && !reducedMotion) {
@@ -502,7 +676,7 @@
       window.scrollTo({ top, behavior });
     };
 
-    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
       anchor.addEventListener('click', (e) => {
         const href = anchor.getAttribute('href');
         if (!href || href === '#') return;
@@ -608,127 +782,5 @@
     });
   }
 
-  if (!reducedMotion) {
-    const cursorMobileMq = window.matchMedia('(max-width: 768px)');
-    const hoverSelector = 'a, button, .btn, input[type="submit"]';
-    let cursorDot = null;
-    let cursorRing = null;
-    let cursorRafId = null;
-    let cursorMouseX = 0;
-    let cursorMouseY = 0;
-    let cursorRingX = 0;
-    let cursorRingY = 0;
-    let cursorClickTimeout = null;
-
-    const setCursorHidden = (hidden) => {
-      cursorDot?.classList.toggle('is-hidden', hidden);
-      cursorRing?.classList.toggle('is-hidden', hidden);
-    };
-
-    const onCursorMove = (e) => {
-      cursorMouseX = e.clientX;
-      cursorMouseY = e.clientY;
-      if (cursorDot) {
-        cursorDot.style.left = `${cursorMouseX}px`;
-        cursorDot.style.top = `${cursorMouseY}px`;
-      }
-    };
-
-    const animateCursorRing = () => {
-      cursorRingX += (cursorMouseX - cursorRingX) * 0.12;
-      cursorRingY += (cursorMouseY - cursorRingY) * 0.12;
-      if (cursorRing) {
-        cursorRing.style.left = `${cursorRingX}px`;
-        cursorRing.style.top = `${cursorRingY}px`;
-      }
-      cursorRafId = requestAnimationFrame(animateCursorRing);
-    };
-
-    const onCursorOver = (e) => {
-      if (e.target.closest(hoverSelector)) {
-        cursorDot?.classList.add('is-hover');
-        cursorRing?.classList.add('is-hover');
-      }
-    };
-
-    const onCursorOut = (e) => {
-      const leaving = e.target.closest(hoverSelector);
-      if (leaving && !e.relatedTarget?.closest(hoverSelector)) {
-        cursorDot?.classList.remove('is-hover');
-        cursorRing?.classList.remove('is-hover');
-      }
-    };
-
-    const onCursorDown = () => {
-      cursorDot?.classList.add('is-click');
-      cursorRing?.classList.add('is-click');
-      clearTimeout(cursorClickTimeout);
-      cursorClickTimeout = setTimeout(() => {
-        cursorDot?.classList.remove('is-click');
-        cursorRing?.classList.remove('is-click');
-      }, 150);
-    };
-
-    const destroyCustomCursor = () => {
-      if (cursorRafId) {
-        cancelAnimationFrame(cursorRafId);
-        cursorRafId = null;
-      }
-      clearTimeout(cursorClickTimeout);
-      document.removeEventListener('mousemove', onCursorMove);
-      document.removeEventListener('mouseover', onCursorOver);
-      document.removeEventListener('mouseout', onCursorOut);
-      document.removeEventListener('mousedown', onCursorDown);
-      document.removeEventListener('mouseleave', onDocumentLeave);
-      document.removeEventListener('mouseenter', onDocumentEnter);
-      cursorDot?.remove();
-      cursorRing?.remove();
-      cursorDot = null;
-      cursorRing = null;
-      document.documentElement.classList.remove('has-custom-cursor');
-    };
-
-    const onDocumentLeave = () => setCursorHidden(true);
-    const onDocumentEnter = () => setCursorHidden(false);
-
-    const initCustomCursor = () => {
-      if (cursorMobileMq.matches) {
-        destroyCustomCursor();
-        return;
-      }
-
-      if (cursorDot && cursorRing) return;
-
-      cursorDot = document.createElement('div');
-      cursorDot.className = 'custom-cursor-dot';
-      cursorDot.setAttribute('aria-hidden', 'true');
-
-      cursorRing = document.createElement('div');
-      cursorRing.className = 'custom-cursor-ring';
-      cursorRing.setAttribute('aria-hidden', 'true');
-
-      document.body.appendChild(cursorDot);
-      document.body.appendChild(cursorRing);
-      document.documentElement.classList.add('has-custom-cursor');
-
-      cursorRingX = cursorMouseX;
-      cursorRingY = cursorMouseY;
-      cursorDot.style.left = `${cursorMouseX}px`;
-      cursorDot.style.top = `${cursorMouseY}px`;
-      cursorRing.style.left = `${cursorRingX}px`;
-      cursorRing.style.top = `${cursorRingY}px`;
-
-      document.addEventListener('mousemove', onCursorMove);
-      document.addEventListener('mouseover', onCursorOver);
-      document.addEventListener('mouseout', onCursorOut);
-      document.addEventListener('mousedown', onCursorDown);
-      document.addEventListener('mouseleave', onDocumentLeave);
-      document.addEventListener('mouseenter', onDocumentEnter);
-
-      cursorRafId = requestAnimationFrame(animateCursorRing);
-    };
-
-    cursorMobileMq.addEventListener('change', initCustomCursor);
-    initCustomCursor();
-  }
-})();
+  console.log('animations loaded');
+});
