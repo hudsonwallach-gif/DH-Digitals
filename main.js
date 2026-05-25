@@ -227,15 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal').forEach((el) => {
       if (el.matches(gridSelector)) return;
-      if (el.querySelector('.social-proof-quote')) return;
       el.classList.add('animate-in');
     });
 
     document.querySelectorAll(cardSelector).forEach((el) => {
-      el.classList.add('animate-in');
-    });
-
-    document.querySelectorAll('.social-proof-quote').forEach((el) => {
       el.classList.add('animate-in');
     });
 
@@ -299,14 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
         revealGrid(grid);
       } else {
         observer.observe(grid);
-      }
-    });
-
-    document.querySelectorAll('.social-proof-quote').forEach((el) => {
-      if (isInViewport(el)) {
-        revealElement(el);
-      } else {
-        observer.observe(el);
       }
     });
 
@@ -374,7 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const monogram = document.querySelector('.hero-monogram');
     const heroVisual = document.querySelector('.hero-visual');
     const sectionHeadings = document.querySelectorAll('.section-title');
-    const socialQuote = document.querySelector('.social-proof-quote');
 
     let ticking = false;
     let enabled = false;
@@ -386,7 +372,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (monogram) monogram.style.transform = '';
       if (heroVisual) heroVisual.style.transform = '';
       sectionHeadings.forEach((el) => { el.style.transform = ''; });
-      if (socialQuote) socialQuote.style.transform = '';
       document.documentElement.classList.remove('home-parallax');
     };
 
@@ -418,13 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const driftX = clamp((elementCenter - viewportCenter) * 0.05, -12, 12);
         heading.style.transform = `translateX(${driftX}px)`;
       });
-
-      if (socialQuote && socialQuote.classList.contains('visible')) {
-        const rect = socialQuote.getBoundingClientRect();
-        const progress = clamp((viewportHeight - rect.top) / (viewportHeight + rect.height * 0.35), 0, 1);
-        const scale = 0.98 + progress * 0.02;
-        socialQuote.style.transform = `translateY(0) scale(${scale})`;
-      }
     };
 
     const requestParallaxTick = () => {
