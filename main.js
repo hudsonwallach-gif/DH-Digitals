@@ -222,8 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const initAnimateIn = () => {
-    const cardSelector = '.service-card, .price-card, .process-step, .why-card, .value-card';
-    const gridSelector = '.services-grid, .pricing-grid, .process-steps, .why-grid, .values-grid';
+    const cardSelector = '.service-card, .price-card, .process-step, .why-card, .value-card, .work-card';
+    const gridSelector = '.services-grid, .pricing-grid, .process-steps, .why-grid, .values-grid, .work-grid';
 
     document.querySelectorAll('.reveal').forEach((el) => {
       if (el.matches(gridSelector)) return;
