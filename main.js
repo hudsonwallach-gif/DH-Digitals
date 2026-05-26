@@ -32,18 +32,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!navLinks) return;
     navLinks.classList.remove('open');
     navToggle?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  };
+
+  const setMobileNavOpen = (open) => {
+    if (!navLinks) return;
+    navLinks.classList.toggle('open', open);
+    navToggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('nav-open', open);
   };
 
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
       if (!mobileNavMq.matches) return;
-      const willOpen = !navLinks.classList.contains('open');
-      navLinks.classList.toggle('open', willOpen);
-      navToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      setMobileNavOpen(!navLinks.classList.contains('open'));
     });
 
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMobileNav);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileNav();
     });
 
     mobileNavMq.addEventListener('change', (e) => {
